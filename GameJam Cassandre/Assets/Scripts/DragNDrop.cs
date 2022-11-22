@@ -4,22 +4,38 @@ using UnityEngine;
 
 public class DragNDrop : MonoBehaviour
 {
-    public float snapDistance = 1; //Max Distance from grid snap is active
-    public Vector3 snapPos;
-    public Vector3 targetPos;
-    public Vector3 startPos;
-    public Vector3 dist;
+    private float snapDistance = 1; //Max Distance from grid snap is active
+    //Size of the custom grid
+    private float gridsize = 10f;
+    private bool isDragged = false;
+    private Vector3 mouseStartPos;
+    private Vector3 spriteStartPos;
 
-    void OnMouseDown(){
-        //Init the value used when moving the object
-        startPos = Camera.main.WorldToScreenPoint(transform.position);
-        dist = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, startPos.z));
+    //Function that round number to closest custom grid
+    float RoundToNearestGrid(float position){
+        float posDiff = position%gridsize;
+        position -= posDiff;
+        //If posDiff superior than half of the gridsize, round up instead
+        if(posDiff>(gridsize/2)){
+            position+=gridsize;
+        }
+        return position;
     }
 
-    void OnMouseDrag(){
+    private void OnMouseDown(){
+        //Init the value used when moving the object
+        mouseStartPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        spriteStartPos = transform.position;
+    }
+
+    private void OnMouseDrag(){
         //Update the value with the position of the cursor
-        Vector3 lastPos=new Vector3(Mathf.Round(Input.mousePosition.x),Mathf.Round(Input.mousePosition.y),startPos.z);
-        transform.position = Camera.main.ScreenToWorldPoint(lastPos) + dist;
+        transform.position = spriteStartPos + (Camera.main.ScreenToWorldPoint(Input.mousePosition)- mouseStartPos);
+        
+    }
+
+    private void OnMouseUp(){
+        //Snap to grid when mouse release
     }
 
     // Start is called before the first frame update
