@@ -9,6 +9,7 @@ public class Grabber : MonoBehaviour
     private GameObject selectedObject;
     //Change this value to change size of grid
     public float gridSize = 10f;
+    public float gridOffset = 5f;
     
 
     // Update is called once per frame
@@ -30,7 +31,7 @@ public class Grabber : MonoBehaviour
                 //when left click when object is selected, drop object where mouse is
                 Vector3 position = new Vector3(Input.mousePosition.x,Input.mousePosition.y, Camera.main.WorldToScreenPoint(selectedObject.transform.position).z);
                 Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
-                selectedObject.transform.position = new Vector3(RoundToNearestGrid(worldPosition.x),0f,RoundToNearestGrid(worldPosition.z));
+                selectedObject.transform.position = new Vector3(RoundToNearestGrid(worldPosition.x)+gridOffset,0f,RoundToNearestGrid(worldPosition.z)+gridOffset);
                 
                 selectedObject = null;
                 //Cursor.visible = true;
@@ -40,7 +41,7 @@ public class Grabber : MonoBehaviour
         if(selectedObject != null){
             Vector3 position = new Vector3(Input.mousePosition.x,Input.mousePosition.y, Camera.main.WorldToScreenPoint(selectedObject.transform.position).z);
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
-            selectedObject.transform.position = new Vector3(RoundToNearestGrid(worldPosition.x),1f,RoundToNearestGrid(worldPosition.z));
+            selectedObject.transform.position = new Vector3(RoundToNearestGrid(worldPosition.x)+gridOffset,1f,RoundToNearestGrid(worldPosition.z)+gridOffset);
         }
     }
     //Creation of a ray that use the mouse as the caster and the camera near and far clipping plane as the ray distance
