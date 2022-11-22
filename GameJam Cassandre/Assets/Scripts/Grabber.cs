@@ -22,14 +22,14 @@ public class Grabber : MonoBehaviour
             
             //When object is in confirmation and left click is used accept movement of object
             if(confirmationState == true){
-                transform.selectedObject.tag = "drag";
+                selectedObject.tag = "drag";
                 selectedObject = null;
                 confirmationState = false;
                 print("confirmé");
             }
             //When left click when nothing selected, grab object
 
-            if(selectedObject == null){
+            else if(selectedObject == null){
                 RaycastHit hit = CastRay();
 
                 if(hit.collider != null) {
@@ -50,7 +50,7 @@ public class Grabber : MonoBehaviour
                 selectedObject.transform.position = new Vector3(RoundToNearestGrid(worldPosition.x)+gridOffset,0f,RoundToNearestGrid(worldPosition.z)+gridOffset);
                 currentPos = selectedObject.transform.position;
                 confirmationState = true;
-                transform.selectedObject.tag = "frozen";
+                selectedObject.tag = "frozen";
                 print(selectedObject);
                 print("posé en attente de confirmation");
                 
@@ -63,13 +63,13 @@ public class Grabber : MonoBehaviour
 
             if(confirmationState == true){
                 selectedObject.transform.position = startPosition;
-                transform.selectedObject.tag = "drag";
+                selectedObject.tag = "drag";
                 selectedObject = null;
                 confirmationState = false;
                 print("annulé en confirmation");
             }else if(selectedObject != null){
                 selectedObject.transform.position = startPosition;
-                transform.selectedObject.tag = "drag";
+                selectedObject.tag = "drag";
                 selectedObject = null;
                 print(selectedObject);
                 print("annulé en mouvement");

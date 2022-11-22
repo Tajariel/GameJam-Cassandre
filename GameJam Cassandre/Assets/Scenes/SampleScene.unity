@@ -711,3 +711,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62fa6c06ee128d146aa92f0eb847379e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  confirmationState: 0
+  gridSize: 10
+  startPosition: {x: 0, y: 0, z: 0}
+  currentPos: {x: 0, y: 0, z: 0}
+  gridOffset: 0
+--- !u!1 &1561952555
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1561952557}
+  - component: {fileID: 1561952556}
+  m_Layer: 0
+  m_Name: MoveCounter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1561952556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561952555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27926779480ccf346b155e10305f72d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idList: []
+  displayedResources:
+  - id: 
+    customResource: {fileID: 0}
+    resourceAmountText: {fileID: 0}
+    resourceAmountImage: {fileID: 0}
+  hasBegun: 0
+--- !u!4 &1561952557
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561952555}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10.731972, y: -1.585432, z: -0.21096528}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
