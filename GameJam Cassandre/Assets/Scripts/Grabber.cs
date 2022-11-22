@@ -22,7 +22,7 @@ public class Grabber : MonoBehaviour
             
             //When object is in confirmation and left click is used accept movement of object
             if(confirmationState == true){
-                selectedObject.tag = "drag";
+                UnFreezeAllDragObject();
                 selectedObject = null;
                 confirmationState = false;
                 print("confirmé");
@@ -50,7 +50,7 @@ public class Grabber : MonoBehaviour
                 selectedObject.transform.position = new Vector3(RoundToNearestGrid(worldPosition.x)+gridOffset,0f,RoundToNearestGrid(worldPosition.z)+gridOffset);
                 currentPos = selectedObject.transform.position;
                 confirmationState = true;
-                selectedObject.tag = "frozen";
+                FreezeAllDragObject();
                 print(selectedObject);
                 print("posé en attente de confirmation");
                 
@@ -63,13 +63,13 @@ public class Grabber : MonoBehaviour
 
             if(confirmationState == true){
                 selectedObject.transform.position = startPosition;
-                selectedObject.tag = "drag";
+                UnFreezeAllDragObject();
                 selectedObject = null;
                 confirmationState = false;
                 print("annulé en confirmation");
             }else if(selectedObject != null){
                 selectedObject.transform.position = startPosition;
-                selectedObject.tag = "drag";
+                UnFreezeAllDragObject();
                 selectedObject = null;
                 print(selectedObject);
                 print("annulé en mouvement");
@@ -84,6 +84,24 @@ public class Grabber : MonoBehaviour
             selectedObject.transform.position = new Vector3(RoundToNearestGrid(worldPosition.x)+gridOffset,1f,RoundToNearestGrid(worldPosition.z)+gridOffset);
         }
     }
+
+    void FreezeAllDragObject(){
+        GameObject[] dragObjects = GameObject.FindGameObjectsWithTag("drag");
+        for(int count=0;count<dragObjects.Length;count++){
+            dragObjects[count].tag = "frozen";
+        }
+        return;
+    }   
+
+    void UnFreezeAllDragObject(){
+        GameObject[] dragObjects = GameObject.FindGameObjectsWithTag("frozen");
+        for(int count=0;count<dragObjects.Length;count++){
+            dragObjects[count].tag = "drag";
+        }
+        return;
+    }
+
+
     //Creation of a ray that use the mouse as the caster and the camera near and far clipping plane as the ray distance
     private RaycastHit CastRay() {
         //Position of mouse on screen with camera farthest view as the end point
