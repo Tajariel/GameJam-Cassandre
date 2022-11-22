@@ -8,7 +8,7 @@ public class Grabber : MonoBehaviour
 
     private GameObject selectedObject;
     //Change this value to change size of grid
-    private float gridSize = 10f;
+    public float gridSize = 10f;
     
 
     // Update is called once per frame
