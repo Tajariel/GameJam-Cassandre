@@ -12,6 +12,7 @@ public class Grabber : MonoBehaviour
     public float gridSize = 10f;
     public Vector3 startPosition;
     public Vector3 currentPos;
+    public float gridOffset = 5f;
     
 
     // Update is called once per frame
@@ -21,6 +22,7 @@ public class Grabber : MonoBehaviour
             
             //When object is in confirmation and left click is used accept movement of object
             if(confirmationState == true){
+                transform.selectedObject.tag = "drag";
                 selectedObject = null;
                 confirmationState = false;
                 print("confirmé");
@@ -45,11 +47,13 @@ public class Grabber : MonoBehaviour
                 print(selectedObject);
                 Vector3 position = new Vector3(Input.mousePosition.x,Input.mousePosition.y, Camera.main.WorldToScreenPoint(selectedObject.transform.position).z);
                 Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
-                selectedObject.transform.position = new Vector3(RoundToNearestGrid(worldPosition.x),0f,RoundToNearestGrid(worldPosition.z));
+                selectedObject.transform.position = new Vector3(RoundToNearestGrid(worldPosition.x)+gridOffset,0f,RoundToNearestGrid(worldPosition.z)+gridOffset);
                 currentPos = selectedObject.transform.position;
                 confirmationState = true;
+                transform.selectedObject.tag = "frozen";
                 print(selectedObject);
                 print("posé en attente de confirmation");
+                
                 //Cursor.visible = true;
             }
         }
@@ -59,11 +63,13 @@ public class Grabber : MonoBehaviour
 
             if(confirmationState == true){
                 selectedObject.transform.position = startPosition;
+                transform.selectedObject.tag = "drag";
                 selectedObject = null;
                 confirmationState = false;
                 print("annulé en confirmation");
             }else if(selectedObject != null){
                 selectedObject.transform.position = startPosition;
+                transform.selectedObject.tag = "drag";
                 selectedObject = null;
                 print(selectedObject);
                 print("annulé en mouvement");
@@ -75,7 +81,7 @@ public class Grabber : MonoBehaviour
         if((selectedObject != null) && (confirmationState== false)){
             Vector3 position = new Vector3(Input.mousePosition.x,Input.mousePosition.y, Camera.main.WorldToScreenPoint(selectedObject.transform.position).z);
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
-            selectedObject.transform.position = new Vector3(RoundToNearestGrid(worldPosition.x),1f,RoundToNearestGrid(worldPosition.z));
+            selectedObject.transform.position = new Vector3(RoundToNearestGrid(worldPosition.x)+gridOffset,1f,RoundToNearestGrid(worldPosition.z)+gridOffset);
         }
     }
     //Creation of a ray that use the mouse as the caster and the camera near and far clipping plane as the ray distance
