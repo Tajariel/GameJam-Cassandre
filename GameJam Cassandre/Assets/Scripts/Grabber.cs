@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class Grabber : MonoBehaviour
 {
-
-    private GameObject selectedObject;
+    public MoveCounter moveCounter;
+    Grabber grabber;
+    public GameObject selectedObject;
     public bool confirmationState = false;
     //Change this value to change size of grid
     public float gridSize = 10f;
@@ -24,6 +25,7 @@ public class Grabber : MonoBehaviour
             if(confirmationState == true){
                 UnFreezeAllDragObject();
                 selectedObject = null;
+                moveCounter.UpdateSelectedObject(selectedObject);
                 confirmationState = false;
                 print("confirmé");
             }
@@ -38,6 +40,7 @@ public class Grabber : MonoBehaviour
                     }
                     
                     selectedObject = hit.collider.gameObject;
+                    moveCounter.UpdateSelectedObject(selectedObject);
                     startPosition = selectedObject.transform.position;
                     print("grabbed");
                     //Cursor.visible = false;
@@ -50,6 +53,7 @@ public class Grabber : MonoBehaviour
                 selectedObject.transform.position = new Vector3(RoundToNearestGrid(worldPosition.x)+gridOffset,0f,RoundToNearestGrid(worldPosition.z)+gridOffset);
                 currentPos = selectedObject.transform.position;
                 confirmationState = true;
+                moveCounter.OnConfirmMajMoveCount();
                 FreezeAllDragObject();
                 print(selectedObject);
                 print("posé en attente de confirmation");
@@ -65,12 +69,15 @@ public class Grabber : MonoBehaviour
                 selectedObject.transform.position = startPosition;
                 UnFreezeAllDragObject();
                 selectedObject = null;
+                moveCounter.UpdateSelectedObject(selectedObject);
                 confirmationState = false;
+                moveCounter.OnConfirmMajMoveCount();
                 print("annulé en confirmation");
             }else if(selectedObject != null){
                 selectedObject.transform.position = startPosition;
                 UnFreezeAllDragObject();
                 selectedObject = null;
+                moveCounter.UpdateSelectedObject(selectedObject);
                 print(selectedObject);
                 print("annulé en mouvement");
             }
@@ -82,6 +89,7 @@ public class Grabber : MonoBehaviour
             Vector3 position = new Vector3(Input.mousePosition.x,Input.mousePosition.y, Camera.main.WorldToScreenPoint(selectedObject.transform.position).z);
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
             selectedObject.transform.position = new Vector3(RoundToNearestGrid(worldPosition.x)+gridOffset,1f,RoundToNearestGrid(worldPosition.z)+gridOffset);
+            currentPos = selectedObject.transform.position;
         }
     }
 
