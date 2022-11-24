@@ -111,7 +111,7 @@ Material:
     - _SrcBlendAlpha: 1
     - _Surface: 0
     - _VignetteRadiousPower: 10.6
-    - _Vignetteintensity: 0.878
+    - _Vignetteintensity: 0.643
     - _VoronoiPower: 3
     - _VoronoiScale: 14.05
     - _VoronoiSpeed: 0.94
