@@ -8,6 +8,8 @@ TagManager:
   - frozen
   - Move Counter
   - People Counter
+  - people
+  - personne
   layers:
   - Default
   - TransparentFX
