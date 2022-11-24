@@ -7,6 +7,7 @@ public class Grabber : MonoBehaviour
 {
     public MoveCounter moveCounter;
     Grabber grabber;
+    [SerializeField] private UI_Counter uiCounter;
     public GameObject selectedObject;
     public bool confirmationState = false;
     //Change this value to change size of grid
@@ -16,6 +17,10 @@ public class Grabber : MonoBehaviour
     public float gridOffset = 5f;
     
 
+void Awake()
+{
+    uiCounter = FindObjectOfType<UI_Counter>();
+}
     // Update is called once per frame
     void Update()
     {
@@ -27,6 +32,7 @@ public class Grabber : MonoBehaviour
                 selectedObject = null;
                 moveCounter.UpdateSelectedObject(selectedObject);
                 confirmationState = false;
+                uiCounter.UpdateCounter();
                 print("confirmé");
             }
             //When left click when nothing selected, grab object
@@ -47,7 +53,7 @@ public class Grabber : MonoBehaviour
                 }
             }else{
                 //when left click when object is selected, drop object where mouse is
-                print(selectedObject);
+
                 Vector3 position = new Vector3(Input.mousePosition.x,Input.mousePosition.y, Camera.main.WorldToScreenPoint(selectedObject.transform.position).z);
                 Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
                 selectedObject.transform.position = new Vector3(RoundToNearestGrid(worldPosition.x)+gridOffset,0f,RoundToNearestGrid(worldPosition.z)+gridOffset);
@@ -55,7 +61,6 @@ public class Grabber : MonoBehaviour
                 confirmationState = true;
                 moveCounter.OnConfirmMajMoveCount();
                 FreezeAllDragObject();
-                print(selectedObject);
                 print("posé en attente de confirmation");
                 
                 //Cursor.visible = true;
@@ -78,7 +83,6 @@ public class Grabber : MonoBehaviour
                 UnFreezeAllDragObject();
                 selectedObject = null;
                 moveCounter.UpdateSelectedObject(selectedObject);
-                print(selectedObject);
                 print("annulé en mouvement");
             }
             
