@@ -6,6 +6,8 @@ TagManager:
   tags:
   - drag
   - frozen
+  - Move Counter
+  - People Counter
   layers:
   - Default
   - TransparentFX

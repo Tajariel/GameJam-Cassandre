@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class MoveCounter : MonoBehaviour 
 {
@@ -42,7 +43,6 @@ public class MoveCounter : MonoBehaviour
         }else if(objectGrabbed.confirmationState==false){
             moveCount+=TotalDistanceMoved();
         }
-        print(moveCount);
     }
     
 
