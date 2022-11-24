@@ -14,20 +14,17 @@ public class UI_Counter : MonoBehaviour
     public void UpdateCounter()
     {
         float totalMoves = 0;
-            for(int i=0;i<listDragableObjects.Count;++i)
-            {
-                MoveCounter mc = listDragableObjects[i].GetComponent<MoveCounter>();
+                MoveCounter mc = listDragableObjects[0].GetComponent<MoveCounter>();
                 if(mc)
                 {
                     totalMoves += mc.moveCount;
-                    print(listDragableObjects[i].GetComponent<MoveCounter>().moveCount);
+                    print(listDragableObjects[0].GetComponent<MoveCounter>().moveCount);
                     print (totalMoves);
                 }
                 else
                 {
                     Debug.LogWarning("TA MERE");
                 }
-            }
             //counter.SetText(totalMoves.ToString());
             textCounter.text = totalMoves.ToString();
     }
